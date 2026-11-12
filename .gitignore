@@ -1,0 +1,3 @@
+*.o
+minihttpd
+*:Zone.Identifier
