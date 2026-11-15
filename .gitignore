@@ -1,3 +1,2 @@
-*.o
 minihttpd
-*:Zone.Identifier
+src/*.o
