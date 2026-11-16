@@ -3,11 +3,11 @@
 #include <strings.h>
 
 typedef struct {
-    const char *extension;
+    const char *ext;
     const char *tipo;
-} entrada_mime_t;
+} par_mime_t;
 
-static const entrada_mime_t TABLA_MIME[] = {
+static const par_mime_t TABLA[] = {
     {".html", "text/html"},
     {".css",  "text/css"},
     {".js",   "application/javascript"},
@@ -15,22 +15,20 @@ static const entrada_mime_t TABLA_MIME[] = {
     {".jpg",  "image/jpeg"}
 };
 
-const char *obtener_tipo_mime(const char *ruta_archivo) {
-    if (!ruta_archivo) {
+const char *buscar_mime(const char *ruta) {
+    if (!ruta)
         return "application/octet-stream";
-    }
 
-    const char *punto = strrchr(ruta_archivo, '.');
-    if (!punto) {
+    const char *punto = strrchr(ruta, '.');
+    const char *barra = strrchr(ruta, '/');
+
+    if (!punto || punto == ruta || (barra && punto <= barra + 1))
         return "application/octet-stream";
-    }
 
-    size_t total = sizeof(TABLA_MIME) / sizeof(TABLA_MIME[0]);
-    for (size_t i = 0; i < total; i++) {
-        if (strcasecmp(punto, TABLA_MIME[i].extension) == 0) {
-            return TABLA_MIME[i].tipo;
-        }
+    size_t n = sizeof(TABLA) / sizeof(TABLA[0]);
+    for (size_t i = 0; i < n; i++) {
+        if (strcasecmp(punto, TABLA[i].ext) == 0)
+            return TABLA[i].tipo;
     }
-
     return "application/octet-stream";
 }
