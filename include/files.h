@@ -4,13 +4,13 @@
 #include <stddef.h>
 
 typedef struct {
-    int codigo_estado;
+    int estado;
     char *datos;
-    size_t tamano;
-    const char *tipo_mime;
-} recurso_archivo_t;
+    size_t tam;
+    const char *mime;
+} archivo_t;
 
-int cargar_recurso(const char *dir_raiz, const char *uri, recurso_archivo_t *recurso);
-void liberar_recurso(recurso_archivo_t *recurso);
+int cargar_archivo(const char *raiz, const char *uri, archivo_t *out);
+void liberar_archivo(archivo_t *arch);
 
 #endif
